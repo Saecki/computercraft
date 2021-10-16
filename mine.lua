@@ -23,7 +23,6 @@ local function digDown()
 end
 
 local x = 1
-local dir = 1
 
 for z = 1, Z, 1 do
     while true do
@@ -31,12 +30,10 @@ for z = 1, Z, 1 do
             dig()
         end
 
-        if dir == 1 and x == X then
-            dir = -1
+        if z % 2 == 1 and x == X then
             break
         end
-        if dir == -1 and x == 1 then
-            dir = 1
+        if z % 2 == 0 and x == 1 then
             break
         end
 
@@ -44,13 +41,17 @@ for z = 1, Z, 1 do
             turtle.turnRight()
             dig()
             turtle.turnRight()
-        else 
+        else
             turtle.turnLeft()
             dig()
             turtle.turnLeft()
         end
 
-        x = x + dir
+        if z % 2 == 1 then
+            x = x + 1
+        else
+            x = x - 1
+        end
     end
 
     if z < Z then
