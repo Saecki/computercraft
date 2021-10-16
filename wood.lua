@@ -186,7 +186,7 @@ end
 local function checkLog()
     local success, block = turtle.inspect()
     if not success then
-        return nil
+        return false, nil
     end
 
     for _,m in ipairs(MATERIALS) do
