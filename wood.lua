@@ -146,8 +146,8 @@ local function checkRefuel()
     end
 end
 
----@param m Material
-local function chopTree(m)
+---@param material Material
+local function chopTree(material)
     turtle.dig()
     turtle.forward()
 
@@ -155,7 +155,17 @@ local function chopTree(m)
 
     while true do
         local success, block = turtle.inspectUp()
-        if success and (block.name == m.log or block.name == m.leaves) then
+        local isLeaves = false
+        if success then
+            for _,m in ipairs(MATERIALS) do
+                if block.name == m.leaves then
+                    isLeaves = true
+                    break
+                end
+            end
+        end
+
+        if success and (block.name == material.log or isLeaves) then
             turtle.digUp()
             turtle.up()
             distance_moved = distance_moved + 1
